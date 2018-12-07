@@ -25,7 +25,7 @@ export default class AddRecipe extends React.Component {
           </TouchableOpacity>
         </View>
         <View style={styles.RegisterRecipe}>
-          <TouchableOpacity >
+          <View >
             <Text> Valor : </Text>
             <TextInput
               style={styles.inputStyle}
@@ -40,19 +40,20 @@ export default class AddRecipe extends React.Component {
               placeholder="Descrição: "
               value={this.state.description}
             />
-
-          </TouchableOpacity>
+          </View>
         </View>
         <View>
-          <TouchableOpacity onPress={() => this.BackToDashboard()} >
-            <Text style={styles.BackToDashboard}>Voltar</Text>
-          </TouchableOpacity>
           <TouchableOpacity onPress={() => this.askRegisterNewRecipe()}>
             <Text style={styles.ConfirmRecipe}>Confirmar</Text>
           </TouchableOpacity>
-          <TouchableOpacity stile={styles.admob} >
-            <Text >Espaço para propaganda</Text>
+          <TouchableOpacity onPress={() => this.BackToDashboard()} >
+            <Text style={styles.BackToDashboard}>Voltar</Text>
           </TouchableOpacity>
+          <View style={styles.ad}>
+          <TouchableOpacity>
+            <Text style={styles.admob}>  Espaço para propaganda </Text>
+          </TouchableOpacity>
+        </View>
         </View>
 
       </View>
@@ -66,37 +67,37 @@ export default class AddRecipe extends React.Component {
 
   askRegisterNewRecipe() {
     Alert.alert(
-        'Registrar Local',
-        'Confirma o seu registo de receita ?',
-        [
-            { text: 'Cancelar', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-            {
-                text: 'OK', onPress: () =>
-                    this.registerNewRecipe()
-            },
-        ],
-        { cancelable: false }
+      'Nova receita',
+      'Confirma o seu registo de receita ?',
+      [
+        { text: 'Cancelar', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        {
+          text: 'OK', onPress: () =>
+            this.registerNewRecipe()
+        },
+      ],
+      { cancelable: false }
     )
-}
-
-registerNewRecipe() {
-  const placeData = {
-      value: this.state.value,
-      description: this.state.description,
-     
   }
 
-  firebase.database().ref("Recipes/")
-  .push(placeData)
-  .then((snapshot) => {
-      const placeId = snapshot.key;
-      firebase.database().ref("Recipes/"+placeId)
-      .update({
-          uid: placeId
+  registerNewRecipe() {
+    const placeData = {
+      value: this.state.value,
+      description: this.state.description,
+
+    }
+
+    firebase.database().ref("Recipes/")
+      .push(placeData)
+      .then((snapshot) => {
+        const placeId = snapshot.key;
+        firebase.database().ref("Recipes/" + placeId)
+          .update({
+            uid: placeId
+          })
+        Alert.alert("Sucesso", "Nova receita cadastrada!");
       })
-      Alert.alert("Sucesso", "Nova receita cadastrada!");
-  })
-}
+  }
 
 }
 
@@ -116,7 +117,6 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     textAlign: 'center',
     margin: 10,
-
     backgroundColor: '#72B5A4'
   },
   tabBar: {
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 2,
     textAlign: 'center',
-    backgroundColor: '#72B5A4'
+    backgroundColor: '#2271B3'
   },
   ConfirmRecipe: {
     color: "white",
@@ -165,6 +165,13 @@ const styles = StyleSheet.create({
   admob: {
     fontSize: 40,
     color: "black"
+  },
+  ad: {
+    fontSize: 20,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
+
   },
   inputStyle: {
     fontSize: 30,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
 
@@ -7,6 +7,7 @@ export default class Dashboard extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+      <ImageBackground style={styles.backgroundStyle} source={require('../../assets/splash2.png')}/>
         <View>
           <TouchableOpacity onPress={() => this.AddRecipe()} >
             <Text style={styles.buttonAddRecipe}>Receita</Text>
@@ -66,5 +67,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     backgroundColor: 'rgba(0,0,0,0.45)'
-  },
+  }, 
+   backgroundStyle:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+  }
+
 });
