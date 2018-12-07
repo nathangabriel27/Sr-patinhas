@@ -9,14 +9,15 @@ import { Scene, Router } from 'react-native-router-flux';
 import AddExpense from './src/MainContainer/AddExpense';
 import AddRecipe from './src/MainContainer/AddRecipe';
 import Dashboard from './src/MainContainer/Dashboard';
+import Balance from './src/MainContainer/Balance';
 
 class RouterComponent extends Component {
-  constructor (props) {
-    super (props);
+  constructor(props) {
+    super(props);
     this.state = {};
   }
 
-  render () {
+  render() {
     return (
       <View style={styles.container}>
         <Router>
@@ -26,11 +27,14 @@ class RouterComponent extends Component {
                 component={Dashboard}
                 initial />
               <Scene
-                  key='addRecipe'
-                  component={AddRecipe} />
+                key='addRecipe'
+                component={AddRecipe} />
               <Scene
                 key='addExpense'
                 component={AddExpense} />
+              <Scene
+                key='balance'
+                component={Balance} />
             </Scene>
           </Scene>
         </Router>

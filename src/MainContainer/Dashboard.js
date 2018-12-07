@@ -19,7 +19,7 @@ export default class Dashboard extends React.Component {
           </TouchableOpacity>
         </View>
         <View>
-          <TouchableOpacity >
+          <TouchableOpacity onPress={() => this.Balance()} >
             <Text style={styles.buttonAddExpense}>Saldos</Text>
           </TouchableOpacity>
         </View>
@@ -31,6 +31,10 @@ export default class Dashboard extends React.Component {
   }
   AddExpense() {
     Actions.addExpense();
+  }
+
+  Balance() {
+    Actions.balance();
   }
 
 }
