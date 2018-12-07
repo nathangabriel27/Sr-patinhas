@@ -6,9 +6,9 @@ import {
 
 import { Scene, Router } from 'react-native-router-flux';
 
-import AddExpense from './containers/MainContainerAddExpense'
-import AddRecipe from './containers/MainContainer/AddRecipe'
-import Dashboard from './containers/MainContainer/Dashboard'
+import AddExpense from './MainContainerAddExpense';
+import AddRecipe from './MainContainer/AddRecipe';
+import Dashboard from './MainContainer/Dashboard'
 
 class RouterComponent extends Component {
   constructor (props) {

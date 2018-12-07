@@ -3,16 +3,14 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 
+import firebase from 'firebase';
+
+import Router from './Router';
+
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <TouchableOpacity>
-          <Text>App.js dentro de SRC</Text>
-
-        </TouchableOpacity>
-
-      </View>
+      <Router></Router>
     );
   }
 }
