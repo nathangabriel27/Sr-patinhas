@@ -87,11 +87,11 @@ export default class AddRecipe extends React.Component {
 
     }
 
-    firebase.database().ref("Recipes/")
+    firebase.database().ref("Expenses/")
       .push(placeData)
       .then((snapshot) => {
         const placeId = snapshot.key;
-        firebase.database().ref("Recipes/" + placeId)
+        firebase.database().ref("Expenses/" + placeId)
           .update({
             uid: placeId
           })
