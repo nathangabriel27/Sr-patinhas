@@ -7,14 +7,29 @@ export default class AddExpense extends React.Component {
   render() {
     return (
       <View>
-        <View>
-          <TouchableOpacity onPress={() => this.BackToDashboard()} >
-            <Text style={styles.buttonAddRecipe}>Voltar</Text>
+        <View style={styles.tabBar}>
+          <TouchableOpacity onPress={() => this.AddExpense()} >
+            <Text style={styles.textNewRecipe}> Nova Despesa </Text>
           </TouchableOpacity>
         </View>
-        <View>
+        <View style={styles.RegisterRecipe}>
           <TouchableOpacity onPress={() => this.AddRecipe()} >
-            <Text> Adicionar Despesa</Text>
+            <Text> Valo: </Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text> Descrição: </Text>
+          </TouchableOpacity>
+
+        </View>
+        <View>
+          <TouchableOpacity onPress={() => this.BackToDashboard()} >
+            <Text style={styles.BackToDashboard}>Voltar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity >
+            <Text style={styles.ConfirmRecipe}>Confirmar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity >
+            <Text stile={styles.admob}>Espaço para propaganda</Text>
           </TouchableOpacity>
         </View>
       </View>

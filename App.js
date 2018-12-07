@@ -9,8 +9,8 @@ import Router from './Router';
 
 export default class App extends React.Component {
 
-  componentWillMount () {
-    
+  componentWillMount() {
+
     //Posso Fazer qualquer tipo de configuração global aqui como por exemplo o Firebase
     if (firebase.apps.length === 0) {
       firebase.initializeApp({
@@ -22,7 +22,7 @@ export default class App extends React.Component {
         messagingSenderId: "571604912958"
       })
     }
-   }
+  }
 
   render() {
     return (
