@@ -1,14 +1,37 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import firebase from 'firebase';
 
 export default class Dashboard extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Dashboard</Text>
+        <View>
+          <TouchableOpacity onPress={() => this.AddRecipe()} >
+            <Text style={styles.buttonAddRecipe}>Receita</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity onPress={() => this.AddExpense()} >
+            <Text style={styles.buttonAddExpense}>Despesas</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity >
+            <Text style={styles.buttonAddExpense}>Saldos</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
+  AddRecipe() {
+    Actions.addRecipe();
+  }
+  AddExpense() {
+    Actions.addExpense();
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -17,5 +40,31 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonAddExpense: {
+    color: "white",
+    fontSize: 20,
+    borderColor: 'white',
+    borderWidth: 1,
+    padding: 25,
+    borderRadius: 25,
+    textAlign: 'center',
+    margin: 10,
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0.45)'
+  },
+  buttonAddRecipe: {
+    color: "white",
+    fontSize: 20,
+    borderColor: 'white',
+    borderWidth: 1,
+    padding: 25,
+    borderRadius: 25,
+    textAlign: 'center',
+    margin: 10,
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0.45)'
   },
 });
