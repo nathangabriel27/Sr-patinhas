@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert, FlatList, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
+import _ from "lodash";
 
 export default class AddRecipe extends React.Component {
 
@@ -26,20 +27,22 @@ export default class AddRecipe extends React.Component {
                 </View>
                 <View style={styles.RegisterRecipe}>
                     <View >
-                        <Text> Receitas.</Text>
-                        <FlatList
-                            data={this.state.placesData}
-                            renderItem={({ item }) => this.renderRecipes(item)} />
-                        <Text> Despesas </Text>
-                        <FlatList
-                            data={this.state.placesData}
-                            renderItem={({ item }) => this.renderExpenses(item)} />
+                        <Text style={styles.titleRecipe}> Receitas.</Text>
+                        <ScrollView>
+                            <FlatList
+                                data={this.state.placesData}
+                                renderItem={({ item }) => this.renderRecipes(item)} />
+
+                        </ScrollView>
+                        <Text style={styles.titleExpense}> Despesas </Text>
+                        <ScrollView>
+                            <FlatList
+                                data={this.state.placesData}
+                                renderItem={({ item }) => this.renderExpenses(item)} />
+                        </ScrollView>
                     </View>
                 </View>
                 <View>
-                    <TouchableOpacity>
-                        <Text style={styles.ConfirmRecipe}>Confirmar</Text>
-                    </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.BackToDashboard()} >
                         <Text style={styles.BackToDashboard}>Voltar</Text>
                     </TouchableOpacity>
@@ -55,10 +58,19 @@ export default class AddRecipe extends React.Component {
     }
 
     componentDidMount() {
-        this.searchPlaces();
+        this.searchRecipes();
     }
-    searchPlaces() {
+
+    searchRecipes() {
         firebase.database().ref("Recipes")
+            .once("value")
+            .then((snapshot) => {
+                const placesValues = _.values(snapshot.val());
+                this.setState({ placesData: placesValues });
+            })
+    }
+    searchExpenses() {
+        firebase.database().ref("Expenses")
             .once("value")
             .then((snapshot) => {
                 const placesValues = _.values(snapshot.val());
@@ -67,8 +79,8 @@ export default class AddRecipe extends React.Component {
     }
     renderRecipes(item) {
         return (
-            <TouchableOpacity  style={styles.rowView} >
-                <Text>{item.value} - </Text>
+            <TouchableOpacity style={styles.rowView} >
+                <Text>R$ {item.value} - </Text>
                 <Text>{item.description}</Text>
             </TouchableOpacity>
         )
@@ -76,7 +88,7 @@ export default class AddRecipe extends React.Component {
     renderExpenses(item) {
         return (
             <TouchableOpacity style={styles.rowView} >
-                <Text>{item.value} - </Text>
+                <Text>R$ {item.value} - </Text>
                 <Text>{item.description}</Text>
             </TouchableOpacity>
         )
@@ -207,5 +219,13 @@ const styles = StyleSheet.create({
     rowView: {
         flex: 1,
         flexDirection: 'row'
+    },
+    titleRecipe: {
+        fontSize: 20,
+        color: 'green'
+    },
+    titleExpense: {
+        fontSize: 20,
+        color: 'red'
     }
 });
