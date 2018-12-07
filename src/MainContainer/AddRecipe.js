@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
 
@@ -47,20 +47,57 @@ export default class AddRecipe extends React.Component {
           <TouchableOpacity onPress={() => this.BackToDashboard()} >
             <Text style={styles.BackToDashboard}>Voltar</Text>
           </TouchableOpacity>
-          <TouchableOpacity >
+          <TouchableOpacity onPress={() => this.askRegisterNewRecipe()}>
             <Text style={styles.ConfirmRecipe}>Confirmar</Text>
           </TouchableOpacity>
-          <TouchableOpacity >
-            <Text stile={styles.admob}>Espaço para propaganda</Text>
+          <TouchableOpacity stile={styles.admob} >
+            <Text >Espaço para propaganda</Text>
           </TouchableOpacity>
         </View>
 
       </View>
     );
   }
+  // Metodos e funções
+
   BackToDashboard() {
     Actions.dashboard();
   }
+
+  askRegisterNewRecipe() {
+    Alert.alert(
+        'Registrar Local',
+        'Confirma o seu registo de receita ?',
+        [
+            { text: 'Cancelar', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            {
+                text: 'OK', onPress: () =>
+                    this.registerNewRecipe()
+            },
+        ],
+        { cancelable: false }
+    )
+}
+
+registerNewRecipe() {
+  const placeData = {
+      value: this.state.value,
+      description: this.state.description,
+     
+  }
+
+  firebase.database().ref("Recipes/")
+  .push(placeData)
+  .then((snapshot) => {
+      const placeId = snapshot.key;
+      firebase.database().ref("Recipes/"+placeId)
+      .update({
+          uid: placeId
+      })
+      Alert.alert("Sucesso", "Nova receita cadastrada!");
+  })
+}
+
 }
 
 const styles = StyleSheet.create({
@@ -119,7 +156,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
     padding: 100,
-
 
   },
   textNewRecipe: {
